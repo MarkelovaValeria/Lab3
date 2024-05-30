@@ -1,0 +1,8 @@
+<button th:fragment="profile(title, img)" type="button"
+        class="flex max-w-xs items-center rounded-full bg-white text-sm
+  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ringoffset-2"
+        id="user-menu-button" aria-expanded="false" aria-haspopup="true"
+        @click="toggleVisibility">
+    <span class="sr-only">[[${title}]]</span>
+    <img th:replace="${img}">
+</button>
