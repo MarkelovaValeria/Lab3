@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import jakarta.persistence.EntityManager;
@@ -16,6 +18,7 @@ import jakarta.persistence.PersistenceContext;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -65,6 +68,36 @@ class OrderRepositoryTest {
         assertThat(jdbcTemplate.queryForObject("SELECT phone FROM tt_order", String
                 .class))
                 .isEqualTo("0961782978");
+    }
+
+    @Test
+    void testFindAllPageable() {
+        saveOrders(8);
+        Sort sort = Sort.by(Sort.Direction.ASC, "userName.fullName");
+
+        assertThat(repository.findAll(PageRequest.of(0, 5, sort)))
+                .hasSize(5)
+                .extracting(order -> order.getUserName().getFullName())
+                .containsExactly("Sunshine0", "Sunshine1", "Sunshine2", "Sunshine3", "Sunshine4");
+
+        assertThat(repository.findAll(PageRequest.of(1, 5, sort))) //<.>
+                .hasSize(3)
+                .extracting(order -> order.getUserName().getFullName())
+                .containsExactly("Sunshine5", "Sunshine6", "Sunshine7");
+
+        assertThat(repository.findAll(PageRequest.of(2, 5, sort))).isEmpty();
+    }
+
+    private void saveOrders(int numberOfUsers) {
+        for (int i = 0; i < numberOfUsers; i++) {
+            repository.save(new Order(repository.nextId(),
+                    new UserName("Sunshine" + i),
+                    new Phone("0961782978"),
+                    Tour.tour2,
+                    TourGuide.guid1,
+                    LocalDate.of(2025, Month.JULY, 15)
+                    ));
+        }
     }
     @TestConfiguration
     static class TestConfig {
