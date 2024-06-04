@@ -1,7 +1,7 @@
 package com.example.Lab3.order;
 
 public enum TourGuide {
-    guid1,
-    guid2,
-    guid3
+    guide1,
+    guide2,
+    guide3
 }
