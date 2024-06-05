@@ -47,7 +47,7 @@ class OrderRepositoryTest {
     @Test
     void testSaveOrder() {
         OrderId id = repository.nextId();
-        repository.save(new Order(id, new UserName("Roman Kovinia"), new Phone("0961782978"), Tour.tour2, TourGuide.guid1, LocalDate.of(2025,12,12)));
+        repository.save(new Order(id, new UserName("Roman Kovinia"), new Phone("0961782978"), Tour.tour2, TourGuide.guide1, LocalDate.of(2025,12,12)));
 
         entityManager.flush();
         assertThat(jdbcTemplate.queryForObject("SELECT id FROM tt_order",
@@ -61,7 +61,7 @@ class OrderRepositoryTest {
 
         assertThat(jdbcTemplate.queryForObject("SELECT guide FROM tt_order", TourGuide.class
         ))
-                .isEqualTo(TourGuide.guid1);
+                .isEqualTo(TourGuide.guide1);
         assertThat(jdbcTemplate.queryForObject("SELECT tour_date FROM tt_order", LocalDate
                 .class))
                 .isEqualTo("2025-12-12");
@@ -94,7 +94,7 @@ class OrderRepositoryTest {
                     new UserName("Sunshine" + i),
                     new Phone("0961782978"),
                     Tour.tour2,
-                    TourGuide.guid1,
+                    TourGuide.guide1,
                     LocalDate.of(2025, Month.JULY, 15)
                     ));
         }

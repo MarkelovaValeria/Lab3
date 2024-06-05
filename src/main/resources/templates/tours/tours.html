@@ -34,7 +34,7 @@
                         <td th:replace="~{fragments/table :: data(contents=${order.tour},hideOnMobile=true)}"></td>
                         <td th:replace="~{fragments/table :: data(contents=${order.guide},hideOnMobile=true)}"></td>
                         <td th:replace="~{fragments/table :: data(contents=${order.date},hideOnMobile=true)}"></td>
-                        <td th:replace="~{fragments/table :: dataWithLink(#{orders.edit}, '#')}"></td>
+                        <td th:replace="~{fragments/table :: dataWithLink(#{orders.edit}, @{/tours/edit/{id}(id=${order.id.asString()})})}"></td>
                     </tr>
                     </tbody>
                 </table>

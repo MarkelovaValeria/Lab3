@@ -2,6 +2,7 @@ package com.example.Lab3.order;
 
 import io.github.wimdeblauwe.jpearl.AbstractEntity;
 
+import io.github.wimdeblauwe.jpearl.AbstractVersionedEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -13,7 +14,7 @@ import java.util.Date;
 
 @Entity
 @Table(name="tt_order")
-public class Order extends AbstractEntity<OrderId> {
+public class Order extends AbstractVersionedEntity<OrderId> {
     @NotNull
     private UserName userName;
     @NotNull
@@ -59,5 +60,29 @@ public class Order extends AbstractEntity<OrderId> {
 
     public LocalDate getDate() {
         return tour_date;
+    }
+
+    public void setUserName(UserName userName) {
+        this.userName = userName;
+    }
+
+    public void setPhone(Phone phone) {
+        this.phone = phone;
+    }
+
+    public void setTour(Tour tour) {
+        this.tour = tour;
+    }
+
+    public void setGuide(TourGuide guide) {
+        this.guide = guide;
+    }
+
+    public LocalDate getTour_date() {
+        return tour_date;
+    }
+
+    public void setTour_date(LocalDate tour_date) {
+        this.tour_date = tour_date;
     }
 }
