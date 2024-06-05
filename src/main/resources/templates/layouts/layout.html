@@ -9,6 +9,7 @@
 <header th:replace="fragments/header::header"></header>
 <section layout:fragment="page-content" class=" mx-auto p-4 flex-1">
 </section>
+
 <script type="text/javascript" th:src="@{/webjars/alpinejs/dist/cdn.min.js}" defer
 ></script> <th:block layout:fragment="page-scripts">
     <script type="text/javascript">
@@ -26,8 +27,10 @@
                 }
             }
         }
+
     </script>
 </th:block>
+
 </body>
 
 </html>

@@ -11,4 +11,5 @@ public interface OrderService {
 
    Page<Order> getAllOrder(Pageable pageable);
    Order editOrder(OrderId orderId, EditOrderParamaters editOrderParamaters);
+   void deleteOrder(OrderId orderId);
 }

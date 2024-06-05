@@ -18,14 +18,17 @@
             th:text="${contents}">
             Table data contents
         </td>
-        <td th:fragment="dataWithLink(linkText, linkUrl)"
+        <td th:fragment="dataWithLink(linkText, linkUrl, deleteUrl)"
             class="py-3 px-4 text-gray-700 text-sm">
             <a th:href="${linkUrl}" th:text="${linkText}" class="text-blue-500 hover:text-blue-700 mr-2">Edit</a>
-            <a href="#" class="text-red-500 hover:text-red-700">Delete</a>
+            <form th:action="${deleteUrl}" method="post">
+                <button type="submit" class="text-red-500 hover:text-red-700">Delete</button>
+            </form>
         </td>
     </tr>
     </thead>
 </table>
+
 
 </body>
 </html>

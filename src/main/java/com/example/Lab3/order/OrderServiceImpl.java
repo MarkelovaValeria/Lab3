@@ -49,4 +49,12 @@ public class OrderServiceImpl implements OrderService{
         editOrderParamaters.update(order);
         return order;
     }
+
+    @Override
+    public void deleteOrder(OrderId orderId) {
+        if(!repository.existsById(orderId)){
+            throw new NoSuchElementException("order not found");
+        }
+        repository.deleteById(orderId);
+    }
 }

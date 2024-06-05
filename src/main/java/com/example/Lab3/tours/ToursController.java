@@ -8,7 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.net.http.HttpClient;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
@@ -71,4 +73,15 @@ public class ToursController {
         return "redirect:/tours";
     }
 
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable("id") OrderId id, RedirectAttributes redirectAttributes) {
+        try{
+            orderService.deleteOrder(id);
+            redirectAttributes.addFlashAttribute("successMessega", "order successfully deleted");
+        }catch(NoSuchElementException e)
+        {
+            redirectAttributes.addFlashAttribute("errorMessage", "order not found");
+        }
+        return "redirect:/tours";
+    }
 }
